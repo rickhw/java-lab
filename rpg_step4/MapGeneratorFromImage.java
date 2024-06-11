@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class MapGeneratorFromImage {
     public static void main(String[] args) {
-        String imagePath = "taiwan2.png"; // 更改为你的 JPG 文件路径
+        String imagePath = "taiwan4.png"; // 更改为你的 JPG 文件路径
         BufferedImage image = loadImage(imagePath);
         if (image != null) {
             int[][] map = generateMapFromImage(image, 1024, 768);
