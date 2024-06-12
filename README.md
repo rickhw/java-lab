@@ -6,6 +6,11 @@
     1. 產生固定的 map
     2. Player 移動的時候，維持在畫面中間
     3. 隱藏 scroll bar
-5. map generator v1
-6. map generator v2: load from jpg to generator the map.
-6
+
+- map generator v1
+- map generator v2: load from jpg to generator the map.
+
+- step5 實作碰撞， player 遇到山、海的時候，不能往前走
+- step6: 實作除錯資訊，
+    - 在右上角固定顯示 Player 的座標
+

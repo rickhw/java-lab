@@ -1,0 +1,14 @@
+tile_size: 10
+map_width: 1024
+map_height: 768
+view_width: 640
+view_height: 480
+player_width: 20
+player_height: 20
+collision_tiles:
+  - 1  # 水
+  - 2  # 山地
+player_info_width: 150
+player_info_height: 40
+player_info_x_offset: 10
+player_info_y_offset: 10
