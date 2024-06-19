@@ -1,4 +1,17 @@
 
+## Todo
+
+- [v] prototype: - take 1h
+    - REST + RDB + Cache + Message Queue
+    - Architecture
+- [ ] Add log for o11y
+    - log to loki
+- [ ] deployment to local and AWS
+- [ ] Add Lock and Transaction for inventory
+- [ ] Simulation
+
+
+
 
 ## Prompt
 
