@@ -1,0 +1,70 @@
+classDiagram
+    direction LR
+
+    class Article {
+        -Long id
+        -String subject
+        -String content
+        -LocalDateTime createdAt
+        +getId() : Long
+        +setId(Long id)
+        +getSubject() : String
+        +setSubject(String subject)
+        +getContent() : String
+        +setContent(String content)
+        +getCreatedAt() : LocalDateTime
+        +setCreatedAt(LocalDateTime createdAt)
+    }
+
+    class ArticleRepository {
+        <<interface>>
+        +save(Article article) : Article
+        +findById(Long id) : Optional~Article~
+        +findAll(Pageable pageable) : Page~Article~
+    }
+
+    class ArticleService {
+        -ArticleRepository articleRepository
+        -RedisTemplate<String, Object> redisTemplate
+        -RabbitTemplate rabbitTemplate
+        +createArticle(Article article) : Article
+        +getArticles(int cursor, int pageSize) : List~Article~
+    }
+
+    class ArticleController {
+        -ArticleService articleService
+        +createArticle(Article article) : ResponseEntity~Article~
+        +getArticles(int cursor, int pageSize) : ResponseEntity~List~Article~~
+    }
+
+    class ArticleMessageListener {
+        -RedisTemplate<String, Object> redisTemplate
+        +receiveMessage(String message)
+    }
+
+    class RedisConfig {
+        +redisTemplate(RedisConnectionFactory connectionFactory) : RedisTemplate<String, Object>
+    }
+
+    ArticleController --> ArticleService
+    ArticleService --> ArticleRepository
+    ArticleService --> RedisTemplate
+    ArticleService --> RabbitTemplate
+    ArticleMessageListener --> RedisTemplate
+
+    classDiagram
+    direction TB
+
+    class RedisConfig
+    class RedisTemplate
+    class RabbitTemplate
+    class RedisConnectionFactory
+    class ObjectMapper
+
+    RedisConfig --> RedisTemplate
+    RedisConfig --> RedisConnectionFactory
+    ArticleMessageListener --> ObjectMapper
+
+    %% External systems
+    RedisTemplate <.. Redis : Cache storage
+    RabbitTemplate <.. RabbitMQ : Message Queue
