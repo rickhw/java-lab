@@ -1,7 +1,6 @@
 package com.example.article.entity;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -11,11 +10,8 @@ public class Article implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String subject;
-
     private String content;
-
     private LocalDateTime createdAt;
 
     // Getters and Setters

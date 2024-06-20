@@ -2,8 +2,11 @@
 ## Todo
 
 - [v] prototype: - take 1h
-    - REST + RDB + Cache + Message Queue
-    - Architecture
+    - [v] REST + RDB + Cache + Message Queue
+    - [v] Architecture
+    - Create
+    - Query
+    - Update
 - [ ] Add log for o11y
     - log to loki
 - [ ] deployment to local and AWS
