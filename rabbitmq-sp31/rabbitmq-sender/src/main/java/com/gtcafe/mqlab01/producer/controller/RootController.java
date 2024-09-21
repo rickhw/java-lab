@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gtcafe.mqlab01.producer.MessageProducer;
-import com.gtcafe.mqlab01.producer.model.MessageEvent;
-import com.gtcafe.mqlab01.producer.model.MessagePayload;
+import com.gtcafe.mqlab01.producer.model.Event;
+import com.gtcafe.mqlab01.producer.model.Message;
 
 @RestController
 public class RootController {
@@ -20,18 +20,18 @@ public class RootController {
 
   @PostMapping(value = "/send-message", produces = { "application/json" })
   public ResponseEntity<String> sendMessage(
-      @RequestBody MessageEvent event) {
+      @RequestBody Message message) {
 
-    String messageId = UUID.randomUUID().toString();
-    event.setId(messageId);
+    String eventId = UUID.randomUUID().toString();
+    message.setId(eventId);
 
-    MessagePayload message = new MessagePayload();
-    message.setMessageId(messageId);
-    message.setEvent(event);
+    Event event = new Event();
+    event.setEventId(eventId);
+    event.setMessage(message);
 
-    _producer.send(message);
+    _producer.send(event);
 
-    return ResponseEntity.ok(String.format("sent, messageId: [%s], event: [%s]", messageId, event));
+    return ResponseEntity.ok(String.format("sent, eventId: [%s], message: [%s]", eventId, message));
   }
 
 }

@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @JsonIdentityInfo(
-	generator = ObjectIdGenerators.IntSequenceGenerator.class, 
-	property = "@id", 
-	scope = MessageEvent.class)
-public class MessageEvent {
+	generator = ObjectIdGenerators.IntSequenceGenerator.class,
+	property = "@id",
+	scope = Message.class)
+public class Message {
 
 	private String id;
 	private String name;

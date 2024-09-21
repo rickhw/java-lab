@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.gtcafe.mqlab01.producer.model.MessagePayload;
+import com.gtcafe.mqlab01.producer.model.Event;
 
 @Service
 public class MessageProducer {
@@ -18,8 +18,8 @@ public class MessageProducer {
 	@Value("${app.rabbitmq.routingkey}")
 	private String routingkey;
 
-	public void send(MessagePayload payload) {
-		rabbitTemplate.convertAndSend(exchange, routingkey, payload);
-		System.out.println("Send msg = " + payload);
+	public void send(Event event) {
+		rabbitTemplate.convertAndSend(exchange, routingkey, event);
+		System.out.println("Enqueue, event: " + event);
 	}
 }
