@@ -57,24 +57,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQDirectConfig {
 
- // 定義 Direct Exchange
- @Bean
- public DirectExchange directExchange() {
- return new DirectExchange("directOrderExchange");
- }
+    // 定義 Direct Exchange
+    @Bean
+    public DirectExchange directExchange() {
+        return new DirectExchange("directOrderExchange");
+    }
 
- // 定義用於處理訂單的佇列
- @Bean
- public Queue orderQueue() {
- return new Queue("orderQueue", true); // 佇列持久化
- }
+    // 定義用於處理訂單的佇列
+    @Bean
+    public Queue orderQueue() {
+        return new Queue("orderQueue", true); // 佇列持久化
+    }
 
- // 綁定佇列到 Direct Exchange，並指定 routingKey
- @Bean
- public Binding bindingOrderQueue(Queue orderQueue, DirectExchange directExchange) {
- // Routing Key 可能是訂單號碼或特定的分類，例如 order.create
- return BindingBuilder.bind(orderQueue).to(directExchange).with("order.*");
- }
+    // 綁定佇列到 Direct Exchange，並指定 routingKey
+    @Bean
+    public Binding bindingOrderQueue(Queue orderQueue, DirectExchange directExchange) {
+        // Routing Key 可能是訂單號碼或特定的分類，例如 order.create
+        return BindingBuilder.bind(orderQueue).to(directExchange).with("order.*");
+    }
 }
 ```
 
@@ -92,33 +92,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderProducer {
 
- private final AmqpTemplate amqpTemplate;
+    private final AmqpTemplate amqpTemplate;
 
- @Autowired
- public OrderProducer(AmqpTemplate amqpTemplate) {
- this.amqpTemplate = amqpTemplate;
- }
+    @Autowired
+    public OrderProducer(AmqpTemplate amqpTemplate) {
+        this.amqpTemplate = amqpTemplate;
+    }
 
- // 發送訂單建立訊息，使用訂單ID作為 Routing Key 保證順序性
- public void sendOrderCreate(String orderId, String message) {
- String routingKey = "order." + orderId; // 使用訂單 ID 作為 routing key
- amqpTemplate.convertAndSend("directOrderExchange", routingKey, message);
- System.out.println("Order Created Message Sent: " + message);
- }
+    // 發送訂單建立訊息，使用訂單ID作為 Routing Key 保證順序性
+    public void sendOrderCreate(String orderId, String message) {
+        String routingKey = "order." + orderId; // 使用訂單 ID 作為 routing key
+        amqpTemplate.convertAndSend("directOrderExchange", routingKey, message);
+        System.out.println("Order Created Message Sent: " + message);
+    }
 
- // 傳送訂單支付訊息
- public void sendOrderPay(String orderId, String message) {
- String routingKey = "order." + orderId;
- amqpTemplate.convertAndSend("directOrderExchange", routingKey, message);
- System.out.println("Order Payment Message Sent: " + message);
- }
+    // 傳送訂單支付訊息
+    public void sendOrderPay(String orderId, String message) {
+        String routingKey = "order." + orderId;
+        amqpTemplate.convertAndSend("directOrderExchange", routingKey, message);
+        System.out.println("Order Payment Message Sent: " + message);
+    }
 
- // 傳送訂單出貨訊息
- public void sendOrderShip(String orderId, String message) {
- String routingKey = "order." + orderId;
- amqpTemplate.convertAndSend("directOrderExchange", routingKey, message);
- System.out.println("Order Shipped Message Sent: " + message);
- }
+    // 傳送訂單出貨訊息
+    public void sendOrderShip(String orderId, String message) {
+        String routingKey = "order." + orderId;
+        amqpTemplate.convertAndSend("directOrderExchange", routingKey, message);
+        System.out.println("Order Shipped Message Sent: " + message);
+    }
 }
 ```
 
@@ -136,13 +136,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderConsumer {
 
- // 監聽訂單處理佇列
- @RabbitListener(queues = "orderQueue")
- public void receiveOrderMessage(String message) {
- // 假設訊息體包含了訂單ID和操作類型
- System.out.println("Order Processed: " + message);
- // 在這裡可以根據訊息內容進行進一步處理，例如更新資料庫狀態
- }
+    // 監聽訂單處理佇列
+    @RabbitListener(queues = "orderQueue")
+    public void receiveOrderMessage(String message) {
+        // 假設訊息體包含了訂單ID和操作類型
+        System.out.println("Order Processed: " + message);
+        // 在這裡可以根據訊息內容進行進一步處理，例如更新資料庫狀態
+    }
 }
 ```
 
@@ -160,31 +160,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderTestRunner implements CommandLineRunner {
 
- private final OrderProducer orderProducer;
+    private final OrderProducer orderProducer;
 
- @Autowired
- public OrderTestRunner(OrderProducer orderProducer) {
- this.orderProducer = orderProducer;
- }
+    @Autowired
+    public OrderTestRunner(OrderProducer orderProducer) {
+        this.orderProducer = orderProducer;
+    }
 
- @Override
- public void run(String... args) throws Exception {
- // 發送有序的訂單訊息
- String orderId = "12345";
- orderProducer.sendOrderCreate(orderId, "Order Created for " + orderId);
- orderProducer.sendOrderPay(orderId, "Order Paid for " + orderId);
- orderProducer.sendOrderShip(orderId, "Order Shipped for " + orderId);
- }
+    @Override
+    public void run(String... args) throws Exception {
+        // 發送有序的訂單訊息
+        String orderId = "12345";
+        orderProducer.sendOrderCreate(orderId, "Order Created for " + orderId);
+        orderProducer.sendOrderPay(orderId, "Order Paid for " + orderId);
+        orderProducer.sendOrderShip(orderId, "Order Shipped for " + orderId);
+    }
 }
 ```
 
 ### 3.5 Gradle 依賴
 
-```gradle
+```java
 dependencies {
- implementation 'org.springframework.boot:spring-boot-starter-amqp'
- implementation 'org.springframework.boot:spring-boot-starter'
- implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 ```
 

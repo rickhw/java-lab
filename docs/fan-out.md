@@ -71,33 +71,33 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQFanoutConfig {
 
- // 定義 fanout 類型的 exchange
- @Bean
- public org.springframework.amqp.core.Exchange fanoutExchange() {
- return ExchangeBuilder.fanoutExchange("fanoutExchange").durable(true).build();
- }
+    // 定義 fanout 類型的 exchange
+    @Bean
+    public org.springframework.amqp.core.Exchange fanoutExchange() {
+        return ExchangeBuilder.fanoutExchange("fanoutExchange").durable(true).build();
+    }
 
- // 定義兩個不同的佇列
- @Bean
- public Queue queueOne() {
- return QueueBuilder.durable("queueOne").build();
- }
+    // 定義兩個不同的佇列
+    @Bean
+    public Queue queueOne() {
+        return QueueBuilder.durable("queueOne").build();
+    }
 
- @Bean
- public Queue queueTwo() {
- return QueueBuilder.durable("queueTwo").build();
- }
+    @Bean
+    public Queue queueTwo() {
+        return QueueBuilder.durable("queueTwo").build();
+    }
 
- // 綁定佇列到 fanout exchange，不需要 routing key
- @Bean
- public Binding bindingQueueOne(Queue queueOne, org.springframework.amqp.core.Exchange fanoutExchange) {
- return BindingBuilder.bind(queueOne).to(fanoutExchange).with("").noargs();
- }
+    // 綁定佇列到 fanout exchange，不需要 routing key
+    @Bean
+    public Binding bindingQueueOne(Queue queueOne, org.springframework.amqp.core.Exchange fanoutExchange) {
+        return BindingBuilder.bind(queueOne).to(fanoutExchange).with("").noargs();
+    }
 
- @Bean
- public Binding bindingQueueTwo(Queue queueTwo, org.springframework.amqp.core.Exchange fanoutExchange) {
- return BindingBuilder.bind(queueTwo).to(fanoutExchange).with("").noargs();
- }
+    @Bean
+    public Binding bindingQueueTwo(Queue queueTwo, org.springframework.amqp.core.Exchange fanoutExchange) {
+        return BindingBuilder.bind(queueTwo).to(fanoutExchange).with("").noargs();
+    }
 }
 ```
 
@@ -115,18 +115,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanoutProducer {
 
- private final AmqpTemplate amqpTemplate;
+    private final AmqpTemplate amqpTemplate;
 
- @Autowired
- public FanoutProducer(AmqpTemplate amqpTemplate) {
- this.amqpTemplate = amqpTemplate;
- }
+    @Autowired
+    public FanoutProducer(AmqpTemplate amqpTemplate) {
+        this.amqpTemplate = amqpTemplate;
+    }
 
- // 發送廣播訊息到 fanout exchange
- public void sendFanoutMessage(String message) {
- amqpTemplate.convertAndSend("fanoutExchange", "", message);
- System.out.println("Fanout Message Sent: " + message);
- }
+    // 發送廣播訊息到 fanout exchange
+    public void sendFanoutMessage(String message) {
+        amqpTemplate.convertAndSend("fanoutExchange", "", message);
+        System.out.println("Fanout Message Sent: " + message);
+    }
 }
 ```
 
@@ -143,17 +143,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanoutConsumer {
 
- // 監聽佇列一
- @RabbitListener(queues = "queueOne")
- public void receiveMessageFromQueueOne(String message) {
- System.out.println("Queue One Received: " + message);
- }
+    // 監聽佇列一
+    @RabbitListener(queues = "queueOne")
+    public void receiveMessageFromQueueOne(String message) {
+        System.out.println("Queue One Received: " + message);
+    }
 
- // 監聽佇列二
- @RabbitListener(queues = "queueTwo")
- public void receiveMessageFromQueueTwo(String message) {
- System.out.println("Queue Two Received: " + message);
- }
+    // 監聽佇列二
+    @RabbitListener(queues = "queueTwo")
+    public void receiveMessageFromQueueTwo(String message) {
+        System.out.println("Queue Two Received: " + message);
+    }
 }
 ```
 
@@ -170,29 +170,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class FanoutTestRunner implements CommandLineRunner {
 
- private final FanoutProducer fanoutProducer;
+    private final FanoutProducer fanoutProducer;
 
- @Autowired
- public FanoutTestRunner(FanoutProducer fanoutProducer) {
- this.fanoutProducer = fanoutProducer;
- }
+    @Autowired
+    public FanoutTestRunner(FanoutProducer fanoutProducer) {
+        this.fanoutProducer = fanoutProducer;
+    }
 
- @Override
- public void run(String... args) throws Exception {
- // 發送廣播訊息
- fanoutProducer.sendFanoutMessage("Hello, this is a fan-out message!");
- }
+    @Override
+    public void run(String... args) throws Exception {
+        // 發送廣播訊息
+        fanoutProducer.sendFanoutMessage("Hello, this is a fan-out message!");
+    }
 }
 ```
 
 ### 3.5 Gradle 依賴
 
 
-```gradle
+```java
 dependencies {
- implementation 'org.springframework.boot:spring-boot-starter-amqp'
- implementation 'org.springframework.boot:spring-boot-starter'
- implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 ```
 
