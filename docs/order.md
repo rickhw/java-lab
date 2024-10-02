@@ -4,6 +4,12 @@ tags:
 - Message Queue
 ---
 
+## Prompt
+
+如果 想要透過 routing key 提供有序列的應用，請整理應用場景與範例
+
+---
+
 透過 Routing Key 來實現有序的訊息處理，是基於 RabbitMQ 中 Direct Exchange 或 Topic Exchange 的機制，將訊息根據 Routing Key 分發到不同的佇列中，從而確保特定類型的訊息按照特定的順序被處理。
 
 在分散式系統中，訊息的有序處理非常關鍵，尤其是在以下應用場景中，Routing Key 可以幫助實現有序的訊息傳遞和處理。

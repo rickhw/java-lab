@@ -5,6 +5,11 @@ tags:
 - Message Queue
 ---
 
+## Prompt
+
+請幫我整理 message queue 的 fan-out 機制的應用場景以及範例說明。
+
+---
 
 RabbitMQ 中的 Fan-out 機制 是一種 廣播 模式，它將訊息傳送到綁定到特定 fanout exchange 的所有佇列，而不考慮佇列或訊息的路由鍵（routing key）。這種模式非常適合以下應用場景：
 

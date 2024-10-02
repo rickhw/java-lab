@@ -1,3 +1,10 @@
+## Prompt
+
+java 17, springboot 3.2, RabbitMQ 中, 幫我整理使用 springboot RabbitMQ Listener 的幾種方法, 整理他們個別的使用時機以及設計的目的
+
+
+---
+
 在 Spring Boot 3.2 中，使用 RabbitMQ Listener 有多種實作方式，每種方式都有不同的使用情境和設計目的。以下是幾種常見的 RabbitMQ Listener 實作方法及其使用時機：
 
 ---

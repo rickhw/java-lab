@@ -1,3 +1,8 @@
+## Prompt
+
+同樣的條件，針對 springboot 3.2, 請整理 rabbitMQ 的 Producer 的用法與情境，像是我有多個 queue 的 producer  應該要怎麼用？
+
+---
 在 Spring Boot 3.2 中，RabbitMQ 的 Producer 用法非常靈活，支援將訊息傳送到多個佇列。 Producer 主要透過 RabbitTemplate 來傳送訊息，而不同的佇列可以透過交換器（Exchange）和路由鍵（Routing Key）來動態選擇。以下是幾種常見的 Producer 用法以及使用多個佇列的場景整理：
 
 ## 1. 基本的 RabbitTemplate 使用

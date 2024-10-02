@@ -1,3 +1,8 @@
+## Prompt
+
+關於 producer / consumer 的運作, 如果 consumer 有多個 instance 在執行，而 message 只能被執行一次的狀況之下，請整理摘要以及實作方式
+
+---
 
 
 為了確保在有多個 Consumer 實例同時運作的情況下，RabbitMQ 中的訊息 只能被處理一次（即訊息不會被重複消費），我們需要考慮以下幾個要點：
