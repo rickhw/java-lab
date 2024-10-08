@@ -3,14 +3,11 @@
 
 同樣的狀態機，除了多個 queue 的設計，你有沒有其他建議的設計方式？
 
-ChatGPT said:
-ChatGPT
-Memory updated
-除了使用多個 RabbitMQ queue 來管理不同狀態的消息外，還有幾種替代設計方式來實現狀態機和處理狀態轉移：
-
-
 ---
 # ChatGPT
+
+除了使用多個 RabbitMQ queue 來管理不同狀態的消息外，還有幾種替代設計方式來實現狀態機和處理狀態轉移：
+
 
 ## 1. 單一隊列 + 消息分流 (Message Routing)
 

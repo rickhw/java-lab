@@ -6,7 +6,8 @@
 
 這四個狀態的轉換表如下
 
-  | pending | running | completed | failure
+from \ to  | pending | running | completed | failure
+-----|-----|-----|-----|-----
 pending | x |  v | x | v
 running | x | v | v
 completed | x | x | x | x
