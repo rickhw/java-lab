@@ -69,7 +69,7 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<States, Ev
 
 ## 2. 狀態與事件定義 (States, Events)
 
-java
+```java
 package com.example.statemachine.config;
 
 public enum States {
