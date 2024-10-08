@@ -9,7 +9,7 @@
 from \ to  | pending | running | completed | failure
 -----|-----|-----|-----|-----
 pending | x |  v | x | v
-running | x | v | v
+running | x | x | v | v
 completed | x | x | x | x
 failure |  x | x | x | x
 
